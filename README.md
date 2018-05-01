@@ -141,5 +141,3 @@ async functin(){
   await myIDB.edit('mystore','id','2',{name:"2233"})
 }
 ```
-
-#### function openDB(name:string,newIndex:object)

@@ -6,7 +6,7 @@
 ## 使用方法
 ### 1、引入
 ```js
-import easyIDB from './easy-idb.js'
+import easyIDB from './easyIDB.js'
 ```
 
 ### 2、实例化一个easyIDB对象
@@ -17,6 +17,14 @@ import easyIDB from './easy-idb.js'
 let myIDB = easyIDB(IDBName,newIndex)
 ```
 如果name为空,则返回一个未绑定数据库的easyIDB对象,需要使用openDB打开数据库
+
+实例化之后可以通过该实例的方法例如
+
+```js
+    myIDB.get(storeName,key,value)
+```
+
+来操作数据库
 
 ### 3、具体方法
 
@@ -63,12 +71,6 @@ let myIDB = easyIDB(IDBName,newIndex)
    }
 }
 ```
-实例化之后可以通过该实例的方法例如
-```js
-    myIDB.get(storeName,key,value)
-```
-来操作数据库
-
 
 ---
 

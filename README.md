@@ -16,10 +16,12 @@ import easyIDB from './easy-idb.js'
 let myIDB = easyIDB(IDBName,newIndex)
 ```
 参数说明
+
 |   参数名    |         类型          | 必须  |        说明       |
 | :------: | :-------------------: | :--: | :-------------------: |
 | IDBName |      string\object       |  是  |       数据库名      |
 |   newIndex   | object               |  否  |     单个store的索引列表  |
+
 当IDBName是字符串时，直接作为数据库名字，打开当前已存在的版本的数据库，不进行数据库更新
 当IDBName为对象时，可以指定数据库版本进行强制更新，参考参数如下
 ```js

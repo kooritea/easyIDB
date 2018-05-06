@@ -1,0 +1,44 @@
+<html>
+  <script src="./easyIDBFromTag.js"></script>
+  <script>
+    let newIndexs = [
+      {
+        name:"history",
+        indexs:[
+          {
+            name:"pid"
+          },
+          {
+            name:"show"
+          }
+        ],
+        option:{
+          keyPath:'id',
+          autoIncrement:true
+        }
+      },
+      {
+        name:"historyto",
+        indexs:[
+          {
+            name:"pid2"
+          },
+          {
+            name:"show2"
+          }
+        ],
+        option:{
+          keyPath:'id',
+          autoIncrement:true
+        }
+      }
+    ]
+    async function test(){
+      var IDB = await easyIDBMain('test',newIndexs)
+      console.log(IDB)
+      IDB.push('historyto',{pid:(new Date()).toString(),show2:false})
+      IDB.push('historyto',{pid:(new Date()).toString(),show2:true})
+    }
+  test()
+  </script>
+</html>

@@ -8,6 +8,24 @@
 ```js
 import easyIDB from './easyIDB.js'
 ```
+or
+```js
+var easyIDB = require('./easyIDB.js').default
+```
+
+当使用<script>标签引入时
+打开easyIDB.js
+注释以下语句
+```js
+// export default easyIDBMain
+```
+```html
+<script src="./easyIDB.js"></script>
+<script>
+  var myIDB = easyIDBMain('mydatabase')
+</script>
+```
+
 
 ### 2、实例化一个easyIDB对象
 
@@ -28,17 +46,15 @@ let myIDB = easyIDB(IDBName,newIndex)
 
 ### 3、具体方法
 
-#### function openDB(IDBName,newIndex)
+#### function openDB(IDBName,newIndexs)
 打开数据库，没有则创建
-
-当前只支持初始化创建一个store
 
 参数说明
 
 |  参数名  |        类型     | 必须  |   说明    |
 | :------: | :------------: | :--: | :-------------------: |
 | IDBName |  string\object   |  是  |       数据库名      |
-| newIndex | object          |  否  |     单个store的索引列表  |
+| newIndexs | array          |  否  |     store列表  |
 
 当IDBName是字符串时，直接作为数据库名字，打开当前已存在的版本的数据库，不进行数据库更新
 
@@ -49,27 +65,46 @@ let myIDB = easyIDB(IDBName,newIndex)
     ver:10
 ｝
 ```
-仅当数据库进行版本更新或者在该用户上第一次创建数据库，会根据newIndex对象进行store的创建
+仅当数据库进行版本更新或者在该用户上第一次创建数据库，会根据newIndexs数组进行store的创建
 
-参考的newIndex对象
+参考的newIndexs数组
 ```js
-{
-   name:"xxx",//storeName
-   indexs:[//添加索引
-       ｛
-            name:"mystore",
-            unique:false//是否唯一 默认false
-        ｝,
+[
+  {
+     name:"xxx",//storeName
+     indexs:[//添加索引
+         ｛
+              name:"mystore",
+              unique:false//是否唯一 默认false
+          ｝,
 
-            name:"mystore2",
-            unique:true//默认值
-        ｝,
-   ],
-   option:{
-     keyPath:'id',//主键
-     autoIncrement:true//是否自增
-   }
-}
+              name:"mystore2",
+              unique:true
+          ｝,
+     ],
+     option:{
+       keyPath:'id',//主键,默认 'id'
+       autoIncrement:true//是否自增,默认 true
+     }
+  },
+  {
+     name:"xxxx",//storeName
+     indexs:[//添加索引
+         ｛
+              name:"mystore",
+              unique:false//是否唯一 默认false
+          ｝,
+
+              name:"mystore2",
+              unique:true
+          ｝,
+     ],
+     option:{
+       keyPath:'id',//主键,默认 'id'
+       autoIncrement:true//是否自增,默认 true
+     }
+  }
+]
 ```
 
 ---
@@ -78,13 +113,13 @@ let myIDB = easyIDB(IDBName,newIndex)
 
 *这不是TS,只是方便看才这样写,下同
 
-根据给定的storeName和key和value,在指定的store中寻找该对象,并返回一个Promise对象
+根据给定的storeName和key和value,在指定的store中寻找该对象,并返回一个数组(promise对象)
 
 |  参数名  |        类型     | 必须  |   说明    |
 | :------: | :------------: | :--: | :-------------------: |
 | storeName |  string   |  是  |             |
-| key | string          |  是  |     查找根据的键,既可以是主键也可以是索引  |
-| value | string | 是| 查找值|
+| key | string          |  否  |     查找根据的键,既可以是主键也可以是索引  |
+| value | string | 否| 查找值|
 
 ```js
 async function(){

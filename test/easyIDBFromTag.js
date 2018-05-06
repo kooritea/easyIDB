@@ -187,4 +187,4 @@ else if (typeof module !== 'undefined' && module.exports) {
 else {
 
 }
-export default easyIDBMain
+//export default easyIDBMain

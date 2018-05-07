@@ -109,7 +109,7 @@ let myIDB = easyIDB(IDBName,newIndex)
 
 ---
 
-#### function get(storeName:string,key:string,value)
+#### function get(storeName:string,key:string,value:string?regexp)
 
 *这不是TS,只是方便看才这样写,下同
 
@@ -119,26 +119,37 @@ let myIDB = easyIDB(IDBName,newIndex)
 | :------: | :------------: | :--: | :-------------------: |
 | storeName |  string   |  是  |             |
 | key | string          |  否  |     查找根据的键,既可以是主键也可以是索引  |
-| value | string | 否| 查找值|
+| value | string/regexp | 否| 查找值|
 
 ```js
 async function(){
   let data = await myIDB.get('mystore','id','23')
+  typeof data === 'array' // true
+  data = await myIDB.get('mystore','name',/2$/)
+  typeof data === 'array' // true
 }
 ```
 ---
 
 #### function push(storeName:string,data:object)
 
-向指定的store添加一条记录
+向指定的store添加记录
 
 |  参数名  |        类型     | 必须  |   说明    |
 | :------: | :------------: | :--: | :-------------------: |
 | storeName |  string   |  是  |             |
-| data | object          |  是  |     添加的数据  |
+| data | object/array          |  是  |     添加的数据  |
 
 ```js
 myIDB.push('mystore',{name:'2233'})
+myIDB.push('mystore',[
+  {
+    name:22
+  },
+  {
+    name:33
+  }
+]])
 ```
 ---
 

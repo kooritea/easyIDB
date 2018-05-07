@@ -36,8 +36,27 @@
     async function test(){
       var IDB = await easyIDBMain('test',newIndexs)
       console.log(IDB)
-      IDB.push('historyto',{pid:(new Date()).toString(),show2:false})
-      IDB.push('historyto',{pid:(new Date()).toString(),show2:true})
+      IDB.push('history',[
+        {
+          pid:new Date(),
+          show:true
+        },
+        {
+          pid:'new Date()',
+          show:true
+        },
+        {
+          pid:2333,
+          show:true
+        },
+        {
+          pid:{a:22,b:33},
+          show:false,
+          ex:'test'
+        }
+      ])
+      IDB.push('history',{pid:new Date(),show:true})
+      console.log(await IDB.get('history'))
     }
   test()
   </script>

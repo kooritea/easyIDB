@@ -41,10 +41,23 @@ function get(storeName,key,value){
     objectStore = objectStore.index(key)
   }
   return new Promise(async function(reslove){
+    let isRegExp = value instanceof RegExp
     objectStore.openCursor().onsuccess = function(event){
       let cursor = event.target.result;
       if(cursor){
-        if(!key||(key&&cursor.value[key] == value)){
+        if(key){
+          if(isRegExp){
+            if(value.test(cursor.value[key])){
+              data.push(cursor.value)
+            }
+          }
+          else{
+            if(cursor.value[key] == value){
+              data.push(cursor.value)
+            }
+          }
+        }
+        else{
           data.push(cursor.value)
         }
         cursor.continue();
@@ -54,15 +67,21 @@ function get(storeName,key,value){
       }
     }
   })
-
 }
 
 
 //添加数据
 //storeName:string
-//data:{}
+//data:object?array
 function push(storeName,data){
-  this.DB.transaction(storeName, "readwrite").objectStore(storeName).add(data);
+  if(Array.isArray(data)){
+    for(let obj of data){
+      this.DB.transaction(storeName, "readwrite").objectStore(storeName).add(obj);
+    }
+  }
+  else{
+    this.DB.transaction(storeName, "readwrite").objectStore(storeName).add(data);
+  }
 }
 
 //根据索引删除该值的对象

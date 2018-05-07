@@ -124,9 +124,9 @@ let myIDB = easyIDB(IDBName,newIndex)
 ```js
 async function(){
   let data = await myIDB.get('mystore','id','23')
-  typeof data === 'array' // true
+  Array.isArray(data) // true
   data = await myIDB.get('mystore','name',/2$/)
-  typeof data === 'array' // true
+  Array.isArray(data) // true
 }
 ```
 ---

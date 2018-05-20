@@ -184,6 +184,6 @@ async functin(){
 
 ```js
 async functin(){
-  await myIDB.edit('mystore','id','2',{name:"2233"})
+  await myIDB.edit('mystore','id','2',{name:"2233",ex:'我是原对象没有的属性'})
 }
 ```

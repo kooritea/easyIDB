@@ -52,7 +52,7 @@ function get(storeName,key,value){
             }
           }
           else{
-            if(cursor.value[key] == value){
+            if(cursor.value[key] === value){
               data.push(cursor.value)
             }
           }
@@ -123,7 +123,6 @@ function edit(storeName,key,value,newObject){
   return new Promise(async function(reslove){
     if(key ===  objectStore.keyPath){
       objectStoreRequest = objectStore.get(parseInt(value));
-
     }
     else{
       objectStoreRequest = objectStore.index(key).get(value);
@@ -131,9 +130,7 @@ function edit(storeName,key,value,newObject){
     objectStoreRequest.onsuccess = function(){
       let Record = objectStoreRequest.result||{}
       for(let key in newObject){
-        if (typeof Record[key] != 'undefined') {
-           Record[key] = newObject[key];
-        }
+        Record[key] = newObject[key];
       }
       reslove(objectStore.put(Record))
     }

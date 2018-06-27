@@ -119,7 +119,7 @@ let myIDB = easyIDB(IDBName,newIndex)
 | :------: | :------------: | :--: | :-------------------: |
 | storeName |  string   |  是  |             |
 | key | string          |  否  |     查找根据的键,既可以是主键也可以是索引  |
-| value | string/regexp | 否| 查找值|
+| value | string/regexp/array | 否| 查找值|
 
 ```js
 async function(){

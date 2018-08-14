@@ -1,6 +1,7 @@
 <html>
   <script src="./easyIDBFromTag.js"></script>
   <script>
+    var IDB
     let newIndexs = [
       {
         name:"history",
@@ -34,7 +35,7 @@
       }
     ]
     async function test(){
-      var IDB = await easyIDBMain('test',newIndexs)
+      IDB = await easyIDBMain('test',newIndexs)
       console.log(IDB)
       IDB.push('history',[
         {
@@ -55,8 +56,8 @@
           ex:'test'
         }
       ])
-      IDB.push('history',{pid:new Date(),show:true})
-      IDB.edit('history','id',1,{pid:2233,test2:[22,33]})
+      IDB.push('history',{$$hashKey:"02R",pid:new Date(),show:true})
+      IDB.edit('history','id',1,{$$hashKey:"02R",test2:[22,33]})
       console.log(await IDB.get('history'))
     }
   test()

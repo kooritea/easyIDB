@@ -10,15 +10,9 @@ import easyIDB from './easyIDB.js'
 ```
 or
 ```js
-var easyIDB = require('./easyIDB.js').default
+var easyIDB = require('./easyIDB.js')
 ```
-
-当使用<script>标签引入时
-打开easyIDB.js
-注释以下语句
-```js
-// export default easyIDBMain
-```
+or
 ```html
 <script src="./easyIDB.js"></script>
 <script>
@@ -111,7 +105,7 @@ let myIDB = easyIDB(IDBName,newIndex)
 
 #### function get(storeName:string,key:string,value:string?regexp)
 
-*这不是TS,只是方便看才这样写,下同
+\*这不是TS,只是方便看才这样写,下同
 
 根据给定的storeName和key和value,在指定的store中寻找该对象,并返回一个数组(promise对象)
 
@@ -164,26 +158,26 @@ myIDB.push('mystore',[
 | value | string | 是| 查找值|
 
 ```js
-async functin(){
+async function(){
   await myIDB.del('mystore','id','2')
 }
 ```
 
 ---
 
-#### function edit(storeName:string,key:string,value:string,newObject:object)
+#### function clearStore(storeName:string)
 
-更新一条记录
-
-|  参数名  |        类型     | 必须  |   说明    |
-| :------: | :------------: | :--: | :-------------------: |
-| storeName |  string   |  是  |             |
-| key | string          |  是  |     查找根据的键,既可以是主键也可以是索引  |
-| value | string | 是| 查找值|
-| newObject| object | 是 | 更新的键值  |
+删除一张表的全部记录
 
 ```js
-async functin(){
-  await myIDB.edit('mystore','id','2',{name:"2233",ex:'我是原对象没有的属性'})
-}
+myIDB.clearStore(storeName)
+```
+
+---
+
+#### function deleteDatabase()
+删除整个数据库
+
+```js
+myIDB.deleteDatabase()
 ```

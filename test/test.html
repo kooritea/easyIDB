@@ -1,5 +1,5 @@
 <html>
-  <script src="./easyIDBFromTag.js"></script>
+  <script src="../easyIDB.js"></script>
   <script>
     var IDB
     let newIndexs = [
@@ -35,6 +35,7 @@
       }
     ]
     async function test(){
+      console.log("create database 'test'")
       IDB = await easyIDBMain('test',newIndexs)
       console.log(IDB)
       IDB.push('history',[
@@ -59,6 +60,8 @@
       IDB.push('history',{$$hashKey:"02R",pid:new Date(),show:true})
       IDB.edit('history','id',1,{$$hashKey:"02R",test2:[22,33]})
       console.log(await IDB.get('history'))
+      IDB.deleteDatabase()
+      console.log('delete database')
     }
   test()
   </script>

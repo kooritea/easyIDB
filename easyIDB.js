@@ -1,3 +1,9 @@
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.easyIDBMain = factory());
+}(this, (function () {
+
 'use strict'
 
 async function easyIDBMain(name,newIndex){
@@ -10,6 +16,8 @@ async function easyIDBMain(name,newIndex){
     get,
     del,
     edit,
+    deleteDatabase,
+		clearStore,
     lock:false
   }
 }
@@ -196,19 +204,16 @@ async function openDB(name,newIndexs){//name有两个传入方式 1:直接传入
   }))
 }
 
-//tank you for async
-// AMD / RequireJS
-if (typeof define !== 'undefined' && define.amd) {
-    define([], function () {
-        return easyIDBMain;
-    });
+function clearStore(storeName){
+	this.DB.transaction(storeName, "readwrite").objectStore(storeName).clear()
 }
-// Node.js
-else if (typeof module !== 'undefined' && module.exports) {
-    module.exports.default = easyIDBMain;
-}
-// included directly via <script> tag
-else {
 
+function deleteDatabase(){
+  window.indexedDB.deleteDatabase(this.DB.name)
+  this.DB = null
 }
-export default easyIDBMain
+
+
+return easyIDBMain
+
+})))

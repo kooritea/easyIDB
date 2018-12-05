@@ -204,8 +204,12 @@ async function openDB(name,newIndexs){//name有两个传入方式 1:直接传入
   }))
 }
 
-function clearStore(storeName){
-	this.DB.transaction(storeName, "readwrite").objectStore(storeName).clear()
+function clearStore(storeName，callback){
+	this.DB.transaction(storeName, "readwrite").objectStore(storeName).clear().onsuccess = function(){
+		if(typeof callback === 'function'){
+			callback()
+		}
+	}
 }
 
 function deleteDatabase(){
